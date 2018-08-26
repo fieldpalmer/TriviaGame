@@ -88,9 +88,9 @@ var clockRunning = false;
 
 //function to start quiz from landing page
 $(document).ready(function() {
-   var click2Start = $("#emptySpan").html($("<img src='./assets/images/geography.jpg'>"));
+   var click2Start = $("#emptySpan").html($("<div class='jumbotron content-div my-4'><h1 class='display-4'>Global Geography Bee</h1><p class='lead'>A short trivia game to test your knowledge of places near and far</p><hr class='my-4'></div>"));
+   $(".jumbotron").append("<img src='./assets/images/geography.jpg' class='headerPic'><br><em>Click image to start</em>")
    click2Start.attr("id", "geoStock");
-    $("#geoStock").append($("<h3 id='clickText' style='text-align:center'>Click image to start!</h3>"));
     $("img").on("click", function() {
         gameLoop();
     })
@@ -121,16 +121,16 @@ function decrement() {
 function showTimeout () {
     stop(); 
     questionCount++
-    $("#triviaSpan").html("Time's Up! The answer is: " + answer);
+    $("#triviaSpan").html("Time's Up! The answer is: " + answer + "<br>");
     $("#triviaSpan").append("<img class='answerPic' src=" + answerPic + ">");
     $("#triviaSpan").append("<p>" + answerFact + "</p>");
-    setTimeout(gameLoop, 1000);
+    setTimeout(gameLoop, 5000);
 }
 //looping through the trivia object without using for is tricky
 function gameLoop () {
     run();
     if (questionCount < quizLength) {
-        number = 10;
+        number = 20;
         rightAnswerIndex = trivia[questionCount].answer;
         answer = trivia[questionCount].options[rightAnswerIndex];
         answerPic = trivia[questionCount].image;
@@ -161,22 +161,15 @@ function gameLoop () {
         var resetText = $("<div>");
         resetText.text("Congrats! You finished. Wish you could try again? Yeahhh...me too.")
         $(".content-div").append(resetText);  
-
+        $(".resetButton").attr("visibility", "visible");
         //this is my attempt to refresh the quiz without reloading the page
 
         // $(resetText).on("click", function () {
         //     correct = 0;
         //     incorrect = 0;
         //     unanswered = 0;
-        //     quizLength = trivia.length;
         //     questionCount = 0 ;
-        //     rightAnswerIndex = "" ;
-        //     answer = "" ;
-        //     rightAnswerPic = "" ; 
-        //     rightAnswerFact = "" ;
-        //     number = "" ;
-        //     intervalID = "" ;
-        //     // $(".content-div").empty();
+        //     $(".content-div").empty();
         //     gameLoop(questionCount);
         // })
     }
@@ -184,19 +177,19 @@ function gameLoop () {
 function showRight () {
     stop(); 
     questionCount++
-    $("#triviaSpan").html("Correct! The answer is: " + answer);
-    $("#triviaSpan").append("<img class='answerPic' src=" + answerPic + ">");
+    $("#triviaSpan").html("Correct! The answer is: " + answer + "<br>");
+    $("#triviaSpan").append("<img class='answerPic' src=" + answerPic + "><br>");
     $("#triviaSpan").append("<p>" + answerFact + "</p>");
-    setTimeout(gameLoop, 1000);
+    setTimeout(gameLoop, 5000);
 }
 
 function showWrong () {
     stop(); 
     questionCount++;
-    $("#triviaSpan").html("Wrong! The answer is: " + answer);
-    $("#triviaSpan").append("<img class='answerPic' src=" + answerPic + ">");
+    $("#triviaSpan").html("Wrong! The answer is: " + answer + "<br>");
+    $("#triviaSpan").append("<img class='answerPic' src=" + answerPic + "><br>");
     $("#triviaSpan").append("<p>" + answerFact + "</p>");
-    setTimeout(gameLoop, 1000);
+    setTimeout(gameLoop, 5000);
 }
 
 
